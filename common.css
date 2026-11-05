@@ -1,0 +1,90 @@
+/* 麻吉旅創 共用樣式（travel.html / signup.html 使用） */
+:root {
+  --teal: #0f8b8d;
+  --teal-dark: #0a5f61;
+  --orange: #f2994a;
+  --orange-dark: #e07b22;
+  --cream: #fff9f0;
+  --ink: #26323a;
+  --muted: #5f6c75;
+  --card: #ffffff;
+  --radius: 18px;
+  --shadow: 0 10px 30px rgba(15, 139, 141, 0.12);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+[hidden] { display: none !important; }
+html { scroll-behavior: smooth; scroll-padding-top: 84px; }
+body {
+  font-family: "Noto Sans TC", "Microsoft JhengHei", sans-serif;
+  color: var(--ink);
+  background: var(--cream);
+  line-height: 1.75;
+}
+a { color: inherit; text-decoration: none; }
+ul { list-style: none; }
+.container { width: min(1120px, 92%); margin: 0 auto; }
+
+/* Header */
+header {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: rgba(255, 249, 240, 0.94);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(15, 139, 141, 0.12);
+}
+.nav { display: flex; align-items: center; justify-content: space-between; height: 68px; }
+.brand { display: flex; flex-direction: column; line-height: 1.15; }
+.brand strong { font-size: 1.3rem; color: var(--teal-dark); font-weight: 900; letter-spacing: 2px; }
+.brand span { font-family: "Poppins", sans-serif; font-size: 0.62rem; letter-spacing: 1.6px; color: var(--orange-dark); font-weight: 600; }
+.menu { display: flex; gap: 26px; align-items: center; font-weight: 500; font-size: 0.95rem; }
+.menu a:hover, .menu a.active { color: var(--teal); }
+.menu a.active { font-weight: 700; }
+.menu .cta {
+  background: var(--orange); color: #fff; padding: 8px 20px; border-radius: 999px; font-weight: 700;
+  transition: background .2s, transform .2s;
+}
+.menu .cta:hover { background: var(--orange-dark); color: #fff; transform: translateY(-1px); }
+.burger { display: none; background: none; border: 0; font-size: 1.8rem; color: var(--teal-dark); cursor: pointer; }
+
+/* Buttons */
+.btn {
+  display: inline-block; padding: 12px 28px; border-radius: 999px; font-weight: 700;
+  border: 2px solid transparent; transition: all .2s; cursor: pointer; font-size: 1rem; font-family: inherit; text-align: center;
+}
+.btn-primary { background: var(--orange); color: #fff; }
+.btn-primary:hover { background: var(--orange-dark); transform: translateY(-2px); }
+.btn-outline { background: #fff; border-color: var(--teal); color: var(--teal-dark); }
+.btn-outline:hover { background: var(--teal); color: #fff; }
+.btn-ghost { border-color: rgba(255,255,255,.7); color: #fff; }
+.btn-ghost:hover { background: rgba(255,255,255,.15); }
+
+/* Page hero (內頁用) */
+.page-hero {
+  padding: 120px 0 56px;
+  background:
+    radial-gradient(circle at 85% 20%, rgba(242,153,74,.35), transparent 40%),
+    linear-gradient(135deg, #0a5f61 0%, #0f8b8d 60%, #3bb3a8 100%);
+  color: #fff;
+}
+.crumbs { font-size: .88rem; opacity: .9; margin-bottom: 14px; }
+.crumbs a { text-decoration: underline; text-underline-offset: 3px; }
+.crumbs a:hover { color: #ffe2bf; }
+.page-hero h1 { font-size: clamp(2rem, 5vw, 3rem); font-weight: 900; line-height: 1.25; }
+.page-hero p { max-width: 640px; margin-top: 10px; opacity: .95; }
+
+/* Footer */
+footer { background: #072f31; color: rgba(255,255,255,.75); text-align: center; padding: 28px 0; font-size: .88rem; }
+footer strong { color: #fff; }
+footer a { text-decoration: underline; text-underline-offset: 3px; margin: 0 8px; }
+footer a:hover { color: #ffe2bf; }
+
+@media (max-width: 860px) {
+  .burger { display: block; }
+  .menu {
+    position: absolute; top: 68px; left: 0; right: 0; flex-direction: column; gap: 0;
+    background: var(--cream); border-bottom: 1px solid rgba(15,139,141,.15);
+    max-height: 0; overflow: hidden; transition: max-height .3s;
+  }
+  .menu.open { max-height: 420px; }
+  .menu a { padding: 14px 0; width: 100%; text-align: center; }
+  .menu .cta { border-radius: 0; background: transparent; color: var(--orange-dark); }
+}

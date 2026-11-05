@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>立即報名｜麻吉旅創 MAJI TRAVEL & CREATIVE</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="common.css">
+  <style>
+    section { padding: 48px 0 64px; }
+    .layout { display: grid; grid-template-columns: 1.4fr 1fr; gap: 32px; align-items: start; }
+
+    form { background: #fff; border-radius: var(--radius); box-shadow: var(--shadow); padding: 32px; display: grid; gap: 18px; }
+    form h2 { color: var(--teal-dark); font-size: 1.4rem; }
+    fieldset { border: 0; display: grid; gap: 14px; }
+    legend { font-weight: 900; color: var(--teal-dark); margin-bottom: 4px; padding-bottom: 6px; border-bottom: 2px solid #e8f5f5; width: 100%; }
+    .row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    label { font-weight: 700; font-size: .9rem; color: var(--teal-dark); display: grid; gap: 6px; }
+    label .req { color: #c0504d; }
+    input, select, textarea {
+      font: inherit; padding: 11px 14px; border: 1.5px solid #d9d4c8; border-radius: 10px; background: var(--cream); color: var(--ink); font-weight: 400;
+    }
+    input:focus, select:focus, textarea:focus { outline: none; border-color: var(--teal); background: #fff; }
+    textarea { min-height: 90px; resize: vertical; }
+    .help { font-size: .8rem; color: var(--muted); font-weight: 400; }
+    .agree { display: flex; gap: 10px; align-items: flex-start; font-weight: 500; color: var(--ink); }
+    .agree input { margin-top: 6px; width: 18px; height: 18px; accent-color: var(--teal); }
+    .agree a { color: var(--teal); text-decoration: underline; }
+
+    /* 摘要 */
+    .summary { position: sticky; top: 88px; background: #fff; border-radius: var(--radius); box-shadow: var(--shadow); padding: 28px; border-top: 6px solid var(--orange); }
+    .summary h3 { color: var(--teal-dark); margin-bottom: 14px; }
+    .summary .emoji { font-size: 2.4rem; }
+    .summary .t-title { font-size: 1.2rem; font-weight: 900; color: var(--teal-dark); line-height: 1.4; }
+    .summary .t-name { color: var(--muted); font-size: .92rem; margin-bottom: 10px; }
+    .summary dl { display: grid; grid-template-columns: auto 1fr; gap: 6px 14px; font-size: .93rem; }
+    .summary dt { color: var(--muted); }
+    .summary dd { text-align: right; font-weight: 500; }
+    .summary .total { margin-top: 14px; padding-top: 14px; border-top: 1px dashed #d9d4c8; display: flex; justify-content: space-between; align-items: baseline; }
+    .summary .total strong { font-family: "Poppins", "Noto Sans TC", sans-serif; font-size: 1.6rem; color: var(--orange-dark); }
+    .summary .small { margin-top: 12px; font-size: .82rem; color: var(--muted); }
+    .summary .placeholder { color: var(--muted); }
+    .summary a.link { display: inline-block; margin-top: 14px; color: var(--teal); text-decoration: underline; font-size: .9rem; }
+
+    /* 完成 */
+    .done { background: #fff; border-radius: var(--radius); box-shadow: var(--shadow); padding: 44px 32px; text-align: center; max-width: 640px; margin: 0 auto; }
+    .done .big { font-size: 3.4rem; }
+    .done h2 { color: var(--teal-dark); margin: 8px 0; }
+    .done pre { text-align: left; background: var(--cream); border-radius: 12px; padding: 16px 20px; white-space: pre-wrap; font-family: inherit; margin: 18px 0; font-size: .93rem; line-height: 1.9; }
+    .done .btns { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
+
+    @media (max-width: 860px) {
+      .layout { grid-template-columns: 1fr; }
+      .summary { position: static; order: -1; }
+      .row { grid-template-columns: 1fr; }
+      form { padding: 24px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="container nav">
+      <a href="index.html" class="brand">
+        <strong>麻吉旅創</strong>
+        <span>MAJI TRAVEL &amp; CREATIVE</span>
+      </a>
+      <button class="burger" id="burger" aria-label="開啟選單">☰</button>
+      <nav class="menu" id="menu">
+        <a href="index.html">首頁</a>
+        <a href="index.html#services">服務項目</a>
+        <a href="travel.html">國內外旅遊</a>
+        <a href="index.html#contact" class="cta">聯絡我們</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="page-hero">
+    <div class="container">
+      <div class="crumbs">
+        <a href="index.html">首頁</a> ›
+        <a href="travel.html">國內外旅遊</a> ›
+        立即報名
+      </div>
+      <h1>立即報名</h1>
+      <p>填寫以下資料，我們會在 1～2 個工作天內與你聯絡，確認梯次、付款方式與旅遊契約。每團固定 8 人。</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+
+      <div class="layout" id="formArea">
+        <form id="signupForm">
+          <h2>報名資料</h2>
+
+          <fieldset>
+            <legend>① 選擇行程</legend>
+            <label>報名行程 <span class="req">*</span>
+              <select id="tour" name="tour" required></select>
+            </label>
+            <div class="row">
+              <label>希望出發月份 <span class="req">*</span>
+                <input type="month" id="month" name="month" required>
+                <span class="help">實際梯次以公司公告為準，確認後由專人通知</span>
+              </label>
+              <label>報名人數 <span class="req">*</span>
+                <select id="people" name="people" required></select>
+                <span class="help">每團限定 8 人，額滿可候補</span>
+              </label>
+            </div>
+            <label>房型 <span class="req">*</span>
+              <select id="room" name="room" required>
+                <option value="twin">兩人一室（團費標準價）</option>
+                <option value="single">單人房（需補差價）</option>
+              </select>
+            </label>
+          </fieldset>
+
+          <fieldset>
+            <legend>② 聯絡人資料</legend>
+            <div class="row">
+              <label>姓名 <span class="req">*</span>
+                <input type="text" name="name" required placeholder="請輸入聯絡人姓名">
+              </label>
+              <label>手機 <span class="req">*</span>
+                <input type="tel" name="phone" required placeholder="0900-000-000">
+              </label>
+            </div>
+            <label>Email <span class="req">*</span>
+              <input type="email" name="email" required placeholder="you@example.com">
+            </label>
+            <label>同行旅客姓名
+              <textarea name="travelers" placeholder="請填寫所有旅客姓名（國外行程請與護照相同）"></textarea>
+            </label>
+          </fieldset>
+
+          <fieldset>
+            <legend>③ 其他資訊</legend>
+            <div class="row">
+              <label>飲食需求
+                <select name="diet">
+                  <option>無特殊需求</option>
+                  <option>素食</option>
+                  <option>不吃牛肉</option>
+                  <option>不吃海鮮</option>
+                  <option>其他（請於備註說明）</option>
+                </select>
+              </label>
+              <label>緊急聯絡人（姓名＋電話）
+                <input type="text" name="emergency" placeholder="例：王小明 0911-111-111">
+              </label>
+            </div>
+            <label>備註（身體狀況、特殊需求、問題等）
+              <textarea name="note" placeholder="例如：有高山症病史、需要輪椅協助、想與朋友同團..."></textarea>
+            </label>
+          </fieldset>
+
+          <label class="agree">
+            <input type="checkbox" required>
+            <span>我已閱讀並同意<a href="travel.html#general" target="_blank">報名須知與注意事項</a>，並了解每團固定 8 人，導遊（嚮導）與司機小費不含於團費。</span>
+          </label>
+
+          <button type="submit" class="btn btn-primary">送出報名</button>
+          <p class="help">＊目前為示範表單，尚未串接寄送功能；送出後只會顯示確認畫面。</p>
+        </form>
+
+        <aside class="summary" id="summary" aria-live="polite"></aside>
+      </div>
+
+      <div class="done" id="done" hidden>
+        <div class="big">🎉</div>
+        <h2>報名資料已送出！</h2>
+        <p>謝謝你，我們會盡快與你聯絡。</p>
+        <pre id="doneText"></pre>
+        <p class="help">（示範頁面：此資料尚未真正寄出，之後串接表單服務後即可使用。）</p>
+        <div class="btns" style="margin-top:18px">
+          <a href="travel.html?filter=all" class="btn btn-outline">← 回到旅遊列表</a>
+          <a href="index.html" class="btn btn-primary">回到首頁</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <p><strong>麻吉旅創 MAJI TRAVEL &amp; CREATIVE</strong></p>
+      <p><a href="index.html">首頁</a> | <a href="travel.html">國內外旅遊</a> | <a href="index.html#contact">聯絡我們</a></p>
+      <p>&copy; <span id="year">2026</span> MAJI TRAVEL &amp; CREATIVE. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="tours.js"></script>
+  <script src="common.js"></script>
+  <script>
+    const tourSel = document.getElementById('tour');
+    const peopleSel = document.getElementById('people');
+    const roomSel = document.getElementById('room');
+    const monthInput = document.getElementById('month');
+    const summary = document.getElementById('summary');
+    const form = document.getElementById('signupForm');
+
+    // 行程下拉選單（國內／國外分組）
+    function optGroup(label, region) {
+      return `<optgroup label="${label}">` +
+        TOURS.filter(t => t.region === region)
+             .map(t => `<option value="${t.id}">${t.name}（${money(t.price)}／人）</option>`).join('') +
+        '</optgroup>';
+    }
+    tourSel.innerHTML = '<option value="">請選擇行程</option>' + optGroup('國內旅遊', 'domestic') + optGroup('國外旅遊', 'overseas');
+
+    // 人數 1～8
+    peopleSel.innerHTML = Array.from({ length: GROUP_SIZE }, (_, i) => `<option value="${i + 1}">${i + 1} 人</option>`).join('');
+
+    // 月份最小值 = 當月
+    const now = new Date();
+    monthInput.min = now.getFullYear() + '-' + String(now.getMonth() + 1).padStart(2, '0');
+
+    // 從網址帶入行程：signup.html?tour=alishan
+    const param = new URLSearchParams(location.search).get('tour');
+    if (param && TOURS.some(t => t.id === param)) tourSel.value = param;
+
+    function currentTour() { return TOURS.find(t => t.id === tourSel.value); }
+
+    function update() {
+      const t = currentTour();
+
+      // 單人房選項：沒有差價的行程（如山屋通舖）不提供
+      const singleOpt = roomSel.querySelector('option[value="single"]');
+      const canSingle = t ? t.single > 0 : true;
+      singleOpt.disabled = !canSingle;
+      singleOpt.textContent = t && !canSingle ? '單人房（此行程為山屋通舖，不提供）' : '單人房（需補差價）';
+      if (!canSingle && roomSel.value === 'single') roomSel.value = 'twin';
+
+      if (!t) {
+        summary.innerHTML = `<h3>報名摘要</h3><p class="placeholder">請先在左側選擇行程，這裡會顯示價格與資訊。</p>
+          <a class="link" href="travel.html?filter=all">← 回到旅遊列表挑選行程</a>`;
+        return;
+      }
+
+      const n = Number(peopleSel.value);
+      const nights = t.dayCount - 1;
+      const base = t.price * n;
+      const singleFee = roomSel.value === 'single' ? t.single * nights * n : 0;
+      const total = base + singleFee;
+      const tipDay = t.tip.guide + t.tip.driver;
+      const tipTotal = tipDay * t.dayCount * n;
+
+      summary.innerHTML = `
+        <h3>報名摘要</h3>
+        <div class="emoji">${t.emoji}</div>
+        <div class="t-title">${t.title}</div>
+        <div class="t-name">${t.name}｜${REGION_LABEL[t.region]}旅遊</div>
+        <dl>
+          <dt>每人團費</dt><dd>${money(t.price)}</dd>
+          <dt>人數</dt><dd>${n} 人</dd>
+          ${singleFee ? `<dt>單人房差價</dt><dd>${money(singleFee)}</dd>` : ''}
+          <dt>導遊（嚮導）小費</dt><dd>每人每天 ${money(t.tip.guide)}</dd>
+          <dt>司機小費</dt><dd>每人每天 ${money(t.tip.driver)}</dd>
+        </dl>
+        <div class="total"><span>團費合計</span><strong>${money(total)}</strong></div>
+        <p class="small">小費不含於團費，${t.dayCount} 天每人約 ${money(tipDay * t.dayCount)}，${n} 人共約 ${money(tipTotal)}，請於行程中自備現金。<br>
+        每團限定 ${GROUP_SIZE} 人，滿 ${GROUP_SIZE} 人出發。</p>
+        <a class="link" href="travel.html?filter=${t.region}#${t.id}">← 回到「${REGION_LABEL[t.region]}旅遊」列表</a>`;
+    }
+
+    tourSel.addEventListener('change', () => {
+      const url = new URL(location.href);
+      if (tourSel.value) url.searchParams.set('tour', tourSel.value); else url.searchParams.delete('tour');
+      history.replaceState(null, '', url);
+      update();
+    });
+    peopleSel.addEventListener('change', update);
+    roomSel.addEventListener('change', update);
+
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      const t = currentTour();
+      const d = new FormData(form);
+      const n = Number(d.get('people'));
+      const nights = t.dayCount - 1;
+      const total = t.price * n + (d.get('room') === 'single' ? t.single * nights * n : 0);
+      document.getElementById('doneText').textContent =
+        `行程：${t.name}\n` +
+        `希望出發月份：${d.get('month')}\n` +
+        `人數：${n} 人（${d.get('room') === 'single' ? '單人房' : '兩人一室'}）\n` +
+        `團費合計：${money(total)}\n` +
+        `聯絡人：${d.get('name')}　${d.get('phone')}\n` +
+        `Email：${d.get('email')}`;
+      document.getElementById('formArea').hidden = true;
+      document.getElementById('done').hidden = false;
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    update();
+  </script>
+</body>
+</html>

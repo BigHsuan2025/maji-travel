@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>國內外旅遊｜麻吉旅創 MAJI TRAVEL & CREATIVE</title>
+  <meta name="description" content="麻吉旅創國內外旅遊：阿里山、清境、嘉明湖、麗寶樂園、東京迪士尼、釜山、香港、新加坡，每團限定 8 人，導遊與司機全程陪同。">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="common.css">
+  <style>
+    section { padding: 56px 0; }
+
+    /* 團體資訊 chips */
+    .info-chips { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
+    .info-chips span {
+      background: rgba(255,255,255,.16); border: 1px solid rgba(255,255,255,.35);
+      padding: 6px 16px; border-radius: 999px; font-size: .9rem; font-weight: 500;
+    }
+
+    /* Tabs */
+    .tabs { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; margin-bottom: 14px; }
+    .tab {
+      padding: 12px 34px; border-radius: 999px; border: 2px solid var(--teal); background: #fff;
+      color: var(--teal-dark); font: inherit; font-weight: 700; font-size: 1.05rem; cursor: pointer; transition: all .2s;
+    }
+    .tab:hover { background: #e8f5f5; }
+    .tab.active { background: var(--teal); color: #fff; box-shadow: var(--shadow); }
+    .tab-hint { text-align: center; color: var(--muted); margin-bottom: 30px; min-height: 1.75em; }
+
+    .empty {
+      text-align: center; padding: 60px 20px; border: 2px dashed #d9d4c8; border-radius: var(--radius);
+      color: var(--muted); background: #fff;
+    }
+    .empty .big { font-size: 3rem; }
+
+    /* Tour card */
+    .tour-list { display: grid; gap: 24px; }
+    .tour {
+      background: var(--card); border-radius: var(--radius); box-shadow: var(--shadow);
+      padding: 28px; border-left: 6px solid var(--teal);
+    }
+    .tour[data-region="overseas"] { border-left-color: var(--orange); }
+    .tour-head { display: flex; gap: 18px; align-items: center; }
+    .tour-emoji { font-size: 2.6rem; width: 72px; height: 72px; display: grid; place-items: center; background: var(--cream); border-radius: 20px; flex: none; }
+    .tour-title { flex: 1; }
+    .tour-title h3 { font-size: 1.4rem; color: var(--teal-dark); line-height: 1.35; }
+    .tour-title .sub { color: var(--muted); font-size: .95rem; }
+    .chips { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 4px; }
+    .chip { font-size: .75rem; padding: 1px 12px; border-radius: 999px; background: #eef2f3; color: var(--muted); font-weight: 700; }
+    .chip.domestic { background: #e8f5f5; color: var(--teal-dark); }
+    .chip.overseas { background: #fdeedb; color: var(--orange-dark); }
+    .tour-price { text-align: right; flex: none; }
+    .tour-price small { display: block; color: var(--muted); font-size: .78rem; line-height: 1.4; }
+    .tour-price strong { font-family: "Poppins", "Noto Sans TC", sans-serif; font-size: 1.6rem; color: var(--orange-dark); line-height: 1.3; }
+    .tagline { margin: 16px 0; color: var(--ink); font-size: 1.02rem; }
+    .tour-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+
+    /* Detail */
+    .detail { margin-top: 24px; padding-top: 24px; border-top: 1px dashed #d9d4c8; }
+    .detail h4 { color: var(--teal-dark); font-size: 1.1rem; margin: 22px 0 10px; display: flex; align-items: center; gap: 8px; }
+    .detail h4:first-child { margin-top: 0; }
+    .detail h4::before { content: ""; width: 5px; height: 1.1em; background: var(--orange); border-radius: 3px; }
+    .tags { display: flex; flex-wrap: wrap; gap: 8px; }
+    .tags li { background: #e8f5f5; color: var(--teal-dark); padding: 3px 14px; border-radius: 999px; font-size: .9rem; font-weight: 500; }
+    .day { display: flex; gap: 16px; margin-bottom: 16px; }
+    .day-badge {
+      flex: none; width: 74px; height: 34px; display: grid; place-items: center; border-radius: 10px;
+      background: var(--teal); color: #fff; font-family: "Poppins", sans-serif; font-weight: 600; font-size: .85rem;
+    }
+    .day-body { flex: 1; background: var(--cream); border-radius: 14px; padding: 16px 20px; }
+    .day-body h5 { font-size: 1.05rem; color: var(--teal-dark); margin-bottom: 6px; }
+    .day-body ul li { position: relative; padding: 2px 0 2px 18px; font-size: .95rem; }
+    .day-body ul li::before { content: "•"; position: absolute; left: 4px; color: var(--orange-dark); font-weight: 900; }
+    .meals { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 12px; }
+    .meals div { background: #fff; border-radius: 10px; padding: 8px 12px; font-size: .85rem; }
+    .meals b { display: block; color: var(--teal-dark); font-size: .8rem; }
+    .chef {
+      margin-top: 14px; padding: 16px 20px; border-radius: 14px;
+      background: linear-gradient(135deg, #fff3e1, #ffe8c8); border: 1px solid #f2d4a6; font-weight: 500;
+    }
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .box { background: var(--cream); border-radius: 14px; padding: 16px 20px; }
+    .box h5 { font-size: 1rem; margin-bottom: 6px; color: var(--teal-dark); }
+    .box li { position: relative; padding: 2px 0 2px 20px; font-size: .93rem; }
+    .box.inc li::before { content: "✔"; position: absolute; left: 0; color: var(--teal); font-weight: 900; }
+    .box.exc li::before { content: "✕"; position: absolute; left: 0; color: #c0504d; font-weight: 900; }
+    .tip-box { background: #fff3e1; border: 1px solid #f2d4a6; border-radius: 14px; padding: 16px 20px; font-size: .95rem; }
+    .tip-box strong { color: var(--orange-dark); }
+    .notes li { position: relative; padding: 3px 0 3px 22px; font-size: .93rem; }
+    .notes li::before { content: "⚠"; position: absolute; left: 0; font-size: .8rem; top: 7px; }
+    .detail-cta { margin-top: 24px; text-align: center; }
+
+    /* 通用注意事項 */
+    .general { background: #fff; }
+    .general h2 { text-align: center; color: var(--teal-dark); font-size: 1.8rem; font-weight: 900; margin-bottom: 8px; }
+    .general .lead { text-align: center; color: var(--muted); margin-bottom: 28px; }
+    .general-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+    .general-grid .box { padding: 22px 24px; }
+    .general-grid .box h3 { font-size: 1.1rem; color: var(--teal-dark); margin-bottom: 8px; }
+    .general-grid .box li { padding-left: 18px; position: relative; font-size: .93rem; }
+    .general-grid .box li::before { content: "•"; position: absolute; left: 4px; color: var(--orange-dark); font-weight: 900; }
+
+    .back-wrap { text-align: center; padding: 40px 0 56px; }
+
+    @media (max-width: 760px) {
+      .tour { padding: 22px 18px; }
+      .tour-head { flex-wrap: wrap; }
+      .tour-price { text-align: left; width: 100%; display: flex; align-items: baseline; gap: 10px; }
+      .tour-price small { display: inline; }
+      .two-col, .meals { grid-template-columns: 1fr; }
+      .day { flex-direction: column; gap: 8px; }
+      .day-badge { width: 70px; }
+      .tab { padding: 10px 22px; font-size: 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="container nav">
+      <a href="index.html" class="brand">
+        <strong>麻吉旅創</strong>
+        <span>MAJI TRAVEL &amp; CREATIVE</span>
+      </a>
+      <button class="burger" id="burger" aria-label="開啟選單">☰</button>
+      <nav class="menu" id="menu">
+        <a href="index.html">首頁</a>
+        <a href="index.html#services">服務項目</a>
+        <a href="travel.html" class="active">國內外旅遊</a>
+        <a href="index.html#contact" class="cta">聯絡我們</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="page-hero">
+    <div class="container">
+      <div class="crumbs">
+        <a href="index.html">首頁</a> ›
+        <a href="index.html#services">服務項目</a> ›
+        旅遊規劃 › 國內外旅遊
+      </div>
+      <h1>國內外旅遊</h1>
+      <p>精選國內外小團體行程，每團固定 8 人，全程有導遊（嚮導）與專業司機陪同，輕鬆出發、安心玩。</p>
+      <div class="info-chips">
+        <span>👥 每團限定 8 人</span>
+        <span>🧑‍✈️ 導遊（嚮導）全程隨團</span>
+        <span>🚐 專業司機接送</span>
+        <span>💰 小費依各行程標示，不含於團費</span>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <div class="tabs" role="group" aria-label="行程分類">
+        <button class="tab" data-filter="all" aria-pressed="false">全部旅遊</button>
+        <button class="tab" data-filter="domestic" aria-pressed="false">國內旅遊</button>
+        <button class="tab" data-filter="overseas" aria-pressed="false">國外旅遊</button>
+      </div>
+      <p class="tab-hint" id="hint"></p>
+
+      <div class="empty" id="empty">
+        <div class="big">🧳</div>
+        <p>請點選上方按鈕，選擇你想看的旅遊類型。</p>
+      </div>
+
+      <div class="tour-list" id="list"></div>
+    </div>
+  </section>
+
+  <section class="general" id="general">
+    <div class="container">
+      <h2>報名須知與注意事項</h2>
+      <p class="lead">報名前請先閱讀以下內容，有任何疑問歡迎先與我們聯絡。</p>
+      <div class="general-grid">
+        <div class="box">
+          <h3>👥 成團與人數</h3>
+          <ul>
+            <li>每團固定 8 人，滿 8 人才出發</li>
+            <li>額滿後可登記候補；未成團時，將於出發前通知延期或全額退費</li>
+            <li>報名後由專人聯絡，確認梯次、付款方式與旅遊契約</li>
+          </ul>
+        </div>
+        <div class="box">
+          <h3>🧑‍✈️ 導遊（嚮導）與司機</h3>
+          <ul>
+            <li>每團配置 1 位導遊（嚮導）與 1 位專業司機</li>
+            <li>小費為感謝服務的心意，不含於團費，每個行程皆標示「每人每天」金額</li>
+            <li>小費建議於最後一天行程結束前，由團員統一交給導遊（嚮導）與司機</li>
+          </ul>
+        </div>
+        <div class="box">
+          <h3>🧾 費用說明</h3>
+          <ul>
+            <li>團費為每人價格，以「兩人一室」計算</li>
+            <li>需要單人房者，依行程補差價</li>
+            <li>價格與行程可能因季節、匯率、航班與住宿調整，以報名確認時為準</li>
+          </ul>
+        </div>
+        <div class="box">
+          <h3>🛂 證件與健康</h3>
+          <ul>
+            <li>國外行程：護照效期須 6 個月以上，入境規定請依各國最新公告辦理</li>
+            <li>姓名請與證件相同，報名後恕難更改</li>
+            <li>孕婦、長者、兒童及行動不便者，請於報名前先與我們確認</li>
+          </ul>
+        </div>
+        <div class="box">
+          <h3>🌦 天候與不可抗力</h3>
+          <ul>
+            <li>颱風、豪雨、地震、管制或景點臨時休園等情況，導遊（嚮導）有權調整行程順序或替換景點</li>
+            <li>因天候無法觀賞日出、雲海等景象，不另退費</li>
+            <li>山區行程以安全為最優先，必要時將中止或下撤</li>
+          </ul>
+        </div>
+        <div class="box">
+          <h3>🛡 保險與取消</h3>
+          <ul>
+            <li>團費含旅遊責任險，建議自行加保旅遊不便險或登山險</li>
+            <li>取消與退費依雙方簽訂之旅遊契約及相關法令辦理</li>
+            <li>請準時集合，逾時未到者視同放棄，恕不退費</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="back-wrap">
+    <a href="index.html" class="btn btn-outline">← 回到首頁</a>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p><strong>麻吉旅創 MAJI TRAVEL &amp; CREATIVE</strong></p>
+      <p><a href="index.html">首頁</a> | <a href="index.html#services">服務項目</a> | <a href="index.html#contact">聯絡我們</a></p>
+      <p>&copy; <span id="year">2026</span> MAJI TRAVEL &amp; CREATIVE. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="tours.js"></script>
+  <script src="common.js"></script>
+  <script>
+    const list = document.getElementById('list');
+    const empty = document.getElementById('empty');
+    const hint = document.getElementById('hint');
+    const tabs = document.querySelectorAll('.tab');
+    const hintText = {
+      all: '全部旅遊',
+      domestic: '國內旅遊',
+      overseas: '國外旅遊'
+    };
+
+    function li(arr) { return arr.map(x => `<li>${x}</li>`).join(''); }
+
+    function card(t) {
+      const tipDay = t.tip.guide + t.tip.driver;
+      const tipTotal = tipDay * t.dayCount;
+      const days = t.days.map((d, i) => `
+        <div class="day">
+          <div class="day-badge">Day ${i + 1}</div>
+          <div class="day-body">
+            <h5>${d.title}</h5>
+            <ul>${li(d.plan)}</ul>
+            <div class="meals">
+              <div><b>🍳 早餐</b>${d.meals.b}</div>
+              <div><b>🍜 午餐</b>${d.meals.l}</div>
+              <div><b>🍽 晚餐</b>${d.meals.d}</div>
+            </div>
+          </div>
+        </div>`).join('');
+
+      return `
+      <article class="tour" id="${t.id}" data-region="${t.region}">
+        <div class="tour-head">
+          <div class="tour-emoji">${t.emoji}</div>
+          <div class="tour-title">
+            <div class="chips">
+              <span class="chip ${t.region}">${REGION_LABEL[t.region]}</span>
+              <span class="chip">${t.duration}</span>
+              <span class="chip">限 ${GROUP_SIZE} 人</span>
+            </div>
+            <h3>${t.title}</h3>
+            <p class="sub">${t.name}</p>
+          </div>
+          <div class="tour-price">
+            <small>每人團費（兩人一室）</small>
+            <strong>${money(t.price)}</strong>
+          </div>
+        </div>
+        <p class="tagline">${t.tagline}</p>
+        <div class="tour-actions">
+          <button class="btn btn-outline toggle" type="button" aria-expanded="false" aria-controls="d-${t.id}">查看詳細行程 ▾</button>
+          <a class="btn btn-primary" href="signup.html?tour=${t.id}">立即報名</a>
+        </div>
+
+        <div class="detail" id="d-${t.id}" hidden>
+          <h4>行程介紹</h4>
+          <p>${t.intro}</p>
+
+          <h4>行程亮點</h4>
+          <ul class="tags">${li(t.highlights)}</ul>
+
+          <h4>每日行程與三餐</h4>
+          ${days}
+          ${t.chefNote ? `<div class="chef">🍜 ${t.chefNote}</div>` : ''}
+
+          <h4>費用說明</h4>
+          <div class="two-col">
+            <div class="box inc"><h5>團費包含</h5><ul>${li(t.includes)}</ul></div>
+            <div class="box exc"><h5>團費不含</h5><ul>${li(t.excludes)}</ul></div>
+          </div>
+
+          <h4>導遊（嚮導）與司機小費</h4>
+          <div class="tip-box">
+            導遊（嚮導）小費 <strong>每人每天 ${money(t.tip.guide)}</strong>，司機小費 <strong>每人每天 ${money(t.tip.driver)}</strong>，
+            合計每人每天 ${money(tipDay)}，${t.dayCount} 天共 <strong>${money(tipTotal)}</strong>（不含於團費，請自備現金）。
+          </div>
+
+          <h4>此行程注意事項與限制</h4>
+          <ul class="notes">
+            <li>每團限定 ${GROUP_SIZE} 人，滿 ${GROUP_SIZE} 人出發</li>
+            ${li(t.notes)}
+          </ul>
+
+          <div class="detail-cta">
+            <a class="btn btn-primary" href="signup.html?tour=${t.id}">立即報名這個行程</a>
+          </div>
+        </div>
+      </article>`;
+    }
+
+    function select(filter) {
+      tabs.forEach(tab => {
+        const on = tab.dataset.filter === filter;
+        tab.classList.toggle('active', on);
+        tab.setAttribute('aria-pressed', on);
+      });
+      const items = TOURS.filter(t => filter === 'all' || t.region === filter);
+      empty.hidden = true;
+      hint.textContent = `${hintText[filter]}：共 ${items.length} 個行程（點「查看詳細行程」展開內容）`;
+      list.innerHTML = items.map(card).join('');
+    }
+
+    tabs.forEach(tab => tab.addEventListener('click', () => select(tab.dataset.filter)));
+
+    // 展開／收合詳細行程
+    list.addEventListener('click', e => {
+      const btn = e.target.closest('.toggle');
+      if (!btn) return;
+      const panel = document.getElementById(btn.getAttribute('aria-controls'));
+      const open = panel.hidden;
+      panel.hidden = !open;
+      btn.setAttribute('aria-expanded', open);
+      btn.textContent = open ? '收合詳細行程 ▴' : '查看詳細行程 ▾';
+    });
+
+    // 從報名頁返回時，可用 ?filter=all|domestic|overseas 直接帶入分類
+    const f = new URLSearchParams(location.search).get('filter');
+    if (f && hintText[f]) select(f);
+  </script>
+</body>
+</html>

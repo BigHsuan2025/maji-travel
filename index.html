@@ -125,6 +125,14 @@
     }
     .card li ul li::before { display: none; }
 
+    .card li.featured { padding-left: 0; }
+    .card li.featured::before { display: none; }
+    .card li.featured a {
+      display: block; background: var(--orange); color: #fff; font-weight: 700;
+      padding: 10px 16px; border-radius: 12px; transition: background .2s, transform .2s;
+    }
+    .card li.featured a:hover { background: var(--orange-dark); transform: translateY(-2px); }
+
     /* Process */
     .process { background: linear-gradient(180deg, #fff 0%, var(--cream) 100%); }
     .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; counter-reset: step; }
@@ -193,6 +201,7 @@
       <nav class="menu" id="menu">
         <a href="#about">關於我們</a>
         <a href="#services">服務項目</a>
+        <a href="travel.html">國內外旅遊</a>
         <a href="#process">服務流程</a>
         <a href="#contact" class="cta">聯絡我們</a>
       </nav>
@@ -261,6 +270,7 @@
             <div><div class="num">SERVICE 01</div><h3>旅遊規劃</h3></div>
           </div>
           <ul>
+            <li class="featured"><a href="travel.html">✈ 國內外旅遊（固定 8 人小團）→</a></li>
             <li>國內自由行規劃</li>
             <li>客製化旅遊行程</li>
             <li>景點、美食、住宿推薦
