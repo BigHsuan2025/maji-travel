@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>麻吉旅創 MAJI TRAVEL & CREATIVE｜旅遊規劃・影音製作・活動企劃</title>
+  <meta name="description" content="麻吉旅創 MAJI TRAVEL & CREATIVE 提供旅遊規劃、交通接駁、影音製作、婚禮娛樂策畫、票券與住宿代訂、活動企劃等服務。">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --teal: #0f8b8d;
+      --teal-dark: #0a5f61;
+      --orange: #f2994a;
+      --orange-dark: #e07b22;
+      --cream: #fff9f0;
+      --ink: #26323a;
+      --muted: #5f6c75;
+      --card: #ffffff;
+      --radius: 18px;
+      --shadow: 0 10px 30px rgba(15, 139, 141, 0.12);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; scroll-padding-top: 76px; }
+    body {
+      font-family: "Noto Sans TC", "Microsoft JhengHei", sans-serif;
+      color: var(--ink);
+      background: var(--cream);
+      line-height: 1.75;
+    }
+    a { color: inherit; text-decoration: none; }
+    ul { list-style: none; }
+    .container { width: min(1120px, 92%); margin: 0 auto; }
+
+    /* ---------- Header ---------- */
+    header {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(255, 249, 240, 0.92);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(15, 139, 141, 0.12);
+    }
+    .nav { display: flex; align-items: center; justify-content: space-between; height: 68px; }
+    .brand { display: flex; flex-direction: column; line-height: 1.15; }
+    .brand strong { font-size: 1.3rem; color: var(--teal-dark); font-weight: 900; letter-spacing: 2px; }
+    .brand span { font-family: "Poppins", sans-serif; font-size: 0.62rem; letter-spacing: 1.6px; color: var(--orange-dark); font-weight: 600; }
+    .menu { display: flex; gap: 26px; align-items: center; font-weight: 500; font-size: 0.95rem; }
+    .menu a:hover { color: var(--teal); }
+    .menu .cta {
+      background: var(--orange); color: #fff; padding: 8px 20px; border-radius: 999px; font-weight: 700;
+      transition: background .2s, transform .2s;
+    }
+    .menu .cta:hover { background: var(--orange-dark); color: #fff; transform: translateY(-1px); }
+    .burger { display: none; background: none; border: 0; font-size: 1.8rem; color: var(--teal-dark); cursor: pointer; }
+
+    /* ---------- Hero ---------- */
+    .hero {
+      min-height: 100vh;
+      display: flex; align-items: center;
+      padding-top: 68px;
+      background:
+        radial-gradient(circle at 85% 20%, rgba(242,153,74,.35), transparent 40%),
+        radial-gradient(circle at 10% 80%, rgba(15,139,141,.30), transparent 45%),
+        linear-gradient(135deg, #0a5f61 0%, #0f8b8d 55%, #3bb3a8 100%);
+      color: #fff;
+      position: relative; overflow: hidden;
+    }
+    .hero::after {
+      content: "✈"; position: absolute; right: 6%; bottom: 8%;
+      font-size: clamp(8rem, 22vw, 18rem); opacity: .08; transform: rotate(-12deg);
+    }
+    .hero-inner { position: relative; z-index: 1; max-width: 720px; }
+    .eyebrow { font-family: "Poppins", sans-serif; letter-spacing: 4px; font-size: .85rem; opacity: .9; }
+    .hero h1 { font-size: clamp(2.4rem, 6vw, 4.2rem); line-height: 1.2; margin: 14px 0 8px; font-weight: 900; }
+    .hero h1 small { display: block; font-family: "Poppins", sans-serif; font-size: clamp(1rem, 2.4vw, 1.5rem); letter-spacing: 3px; font-weight: 600; color: #ffe2bf; margin-top: 8px; }
+    .hero p { font-size: 1.1rem; opacity: .95; margin: 18px 0 32px; max-width: 560px; }
+    .btns { display: flex; gap: 14px; flex-wrap: wrap; }
+    .btn {
+      display: inline-block; padding: 13px 30px; border-radius: 999px; font-weight: 700;
+      border: 2px solid transparent; transition: all .2s; cursor: pointer; font-size: 1rem; font-family: inherit;
+    }
+    .btn-primary { background: var(--orange); color: #fff; }
+    .btn-primary:hover { background: var(--orange-dark); transform: translateY(-2px); }
+    .btn-ghost { border-color: rgba(255,255,255,.7); color: #fff; }
+    .btn-ghost:hover { background: rgba(255,255,255,.15); }
+
+    /* ---------- Sections ---------- */
+    section { padding: 88px 0; }
+    .section-head { text-align: center; margin-bottom: 48px; }
+    .section-head .tag { font-family: "Poppins", sans-serif; color: var(--orange-dark); letter-spacing: 3px; font-size: .8rem; font-weight: 600; }
+    .section-head h2 { font-size: clamp(1.8rem, 4vw, 2.4rem); color: var(--teal-dark); margin-top: 4px; font-weight: 900; }
+    .section-head p { color: var(--muted); max-width: 600px; margin: 10px auto 0; }
+
+    /* About */
+    .about { background: #fff; }
+    .about-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .about-item { text-align: center; padding: 30px 22px; border-radius: var(--radius); background: var(--cream); }
+    .about-item .ico { font-size: 2.4rem; }
+    .about-item h3 { margin: 10px 0 6px; color: var(--teal-dark); }
+    .about-item p { color: var(--muted); font-size: .95rem; }
+
+    /* Services */
+    .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 26px; }
+    .card {
+      background: var(--card); border-radius: var(--radius); padding: 30px 28px;
+      box-shadow: var(--shadow); border-top: 5px solid var(--teal);
+      transition: transform .25s, box-shadow .25s;
+    }
+    .card:nth-child(even) { border-top-color: var(--orange); }
+    .card:hover { transform: translateY(-6px); box-shadow: 0 16px 36px rgba(15,139,141,.2); }
+    .card-top { display: flex; align-items: center; gap: 14px; margin-bottom: 14px; }
+    .card-top .ico {
+      width: 56px; height: 56px; display: grid; place-items: center; font-size: 1.7rem;
+      background: var(--cream); border-radius: 16px;
+    }
+    .card-top .num { font-family: "Poppins", sans-serif; font-size: .75rem; color: var(--orange-dark); font-weight: 600; letter-spacing: 2px; }
+    .card-top h3 { font-size: 1.3rem; color: var(--teal-dark); line-height: 1.3; }
+    .card li { position: relative; padding: 6px 0 6px 22px; border-bottom: 1px dashed #e6e0d5; font-size: .98rem; }
+    .card li:last-child { border-bottom: 0; }
+    .card li::before { content: "●"; position: absolute; left: 0; color: var(--orange); font-size: .6rem; top: 12px; }
+    .card li ul { margin-top: 4px; display: flex; flex-wrap: wrap; gap: 6px; }
+    .card li ul li {
+      padding: 2px 12px; border: 0; background: #e8f5f5; color: var(--teal-dark);
+      border-radius: 999px; font-size: .85rem; font-weight: 500;
+    }
+    .card li ul li::before { display: none; }
+
+    /* Process */
+    .process { background: linear-gradient(180deg, #fff 0%, var(--cream) 100%); }
+    .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; counter-reset: step; }
+    .step { text-align: center; padding: 26px 16px; background: #fff; border-radius: var(--radius); box-shadow: var(--shadow); }
+    .step::before {
+      counter-increment: step; content: counter(step);
+      display: grid; place-items: center; width: 44px; height: 44px; margin: 0 auto 12px;
+      border-radius: 50%; background: var(--teal); color: #fff; font-family: "Poppins", sans-serif; font-weight: 700;
+    }
+    .step h4 { color: var(--teal-dark); margin-bottom: 4px; }
+    .step p { color: var(--muted); font-size: .9rem; }
+
+    /* Contact */
+    .contact { background: var(--teal-dark); color: #fff; }
+    .contact .section-head h2 { color: #fff; }
+    .contact .section-head p { color: rgba(255,255,255,.8); }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 40px; align-items: start; }
+    .contact-info li { padding: 12px 0; display: flex; gap: 12px; align-items: center; font-size: 1.05rem; }
+    .contact-info .ico { font-size: 1.4rem; width: 40px; }
+    form { background: #fff; color: var(--ink); padding: 30px; border-radius: var(--radius); display: grid; gap: 14px; }
+    label { font-weight: 700; font-size: .9rem; color: var(--teal-dark); display: grid; gap: 6px; }
+    input, select, textarea {
+      font: inherit; padding: 11px 14px; border: 1.5px solid #d9d4c8; border-radius: 10px; background: var(--cream);
+    }
+    input:focus, select:focus, textarea:focus { outline: none; border-color: var(--teal); background: #fff; }
+    textarea { min-height: 110px; resize: vertical; }
+    .form-note { font-size: .8rem; color: var(--muted); }
+    .toast { display: none; background: #e8f5f5; color: var(--teal-dark); padding: 12px 16px; border-radius: 10px; font-weight: 700; }
+
+    footer { background: #072f31; color: rgba(255,255,255,.75); text-align: center; padding: 28px 0; font-size: .88rem; }
+    footer strong { color: #fff; }
+
+    /* Reveal animation */
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s, transform .7s; }
+    .reveal.show { opacity: 1; transform: none; }
+
+    /* ---------- Responsive ---------- */
+    @media (max-width: 860px) {
+      .burger { display: block; }
+      .menu {
+        position: absolute; top: 68px; left: 0; right: 0; flex-direction: column; gap: 0;
+        background: var(--cream); border-bottom: 1px solid rgba(15,139,141,.15);
+        max-height: 0; overflow: hidden; transition: max-height .3s;
+      }
+      .menu.open { max-height: 420px; }
+      .menu a { padding: 14px 0; width: 100%; text-align: center; }
+      .menu .cta { border-radius: 0; background: transparent; color: var(--orange-dark); }
+      .about-grid, .contact-grid { grid-template-columns: 1fr; }
+      .steps { grid-template-columns: repeat(2, 1fr); }
+      .services-grid { grid-template-columns: 1fr; }
+      section { padding: 64px 0; }
+    }
+    @media (max-width: 480px) { .steps { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+  <!-- ===== Header ===== -->
+  <header>
+    <div class="container nav">
+      <a href="#home" class="brand">
+        <strong>麻吉旅創</strong>
+        <span>MAJI TRAVEL &amp; CREATIVE</span>
+      </a>
+      <button class="burger" id="burger" aria-label="開啟選單">☰</button>
+      <nav class="menu" id="menu">
+        <a href="#about">關於我們</a>
+        <a href="#services">服務項目</a>
+        <a href="#process">服務流程</a>
+        <a href="#contact" class="cta">聯絡我們</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ===== Hero ===== -->
+  <section class="hero" id="home">
+    <div class="container">
+      <div class="hero-inner">
+        <div class="eyebrow">TRAVEL · VIDEO · EVENT</div>
+        <h1>麻吉旅創
+          <small>MAJI TRAVEL &amp; CREATIVE</small>
+        </h1>
+        <p>從旅遊規劃、交通接駁，到影音紀錄與婚禮、活動企劃，<br>一站式替你把每個值得紀念的時刻，變成最棒的回憶。</p>
+        <div class="btns">
+          <a href="#services" class="btn btn-primary">看看服務項目</a>
+          <a href="#contact" class="btn btn-ghost">立即諮詢</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== About ===== -->
+  <section class="about" id="about">
+    <div class="container">
+      <div class="section-head reveal">
+        <div class="tag">ABOUT US</div>
+        <h2>關於麻吉旅創</h2>
+        <p>「麻吉」就是好夥伴。我們結合旅遊與創意，陪你規劃行程、記錄故事、策畫活動。</p>
+      </div>
+      <div class="about-grid">
+        <div class="about-item reveal">
+          <div class="ico">🧭</div>
+          <h3>旅遊與交通</h3>
+          <p>行程規劃、包車、接送與票券住宿代訂，讓出遊輕鬆又順心。</p>
+        </div>
+        <div class="about-item reveal">
+          <div class="ico">🎬</div>
+          <h3>影音與紀錄</h3>
+          <p>旅遊、婚禮、生日與個人回憶錄，用影像把感動留下來。</p>
+        </div>
+        <div class="about-item reveal">
+          <div class="ico">🎉</div>
+          <h3>婚禮與活動企劃</h3>
+          <p>互動遊戲、抽獎、派對與主持安排，讓每場活動都有亮點。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Services ===== -->
+  <section id="services">
+    <div class="container">
+      <div class="section-head reveal">
+        <div class="tag">OUR SERVICES</div>
+        <h2>服務項目</h2>
+        <p>六大服務，涵蓋旅遊、影音、婚禮與活動，依需求自由搭配。</p>
+      </div>
+
+      <div class="services-grid">
+
+        <article class="card reveal">
+          <div class="card-top">
+            <div class="ico">🗺️</div>
+            <div><div class="num">SERVICE 01</div><h3>旅遊規劃</h3></div>
+          </div>
+          <ul>
+            <li>國內自由行規劃</li>
+            <li>客製化旅遊行程</li>
+            <li>景點、美食、住宿推薦
+              <ul>
+                <li>景點</li><li>美食</li><li>住宿</li>
+              </ul>
+            </li>
+            <li>團體旅遊及主題旅遊</li>
+          </ul>
+        </article>
+
+        <article class="card reveal">
+          <div class="card-top">
+            <div class="ico">🚐</div>
+            <div><div class="num">SERVICE 02</div><h3>交通接駁</h3></div>
+          </div>
+          <ul>
+            <li>包車旅遊（含專業司機）</li>
+            <li>定點接送服務</li>
+            <li>機場接送</li>
+          </ul>
+        </article>
+
+        <article class="card reveal">
+          <div class="card-top">
+            <div class="ico">🎥</div>
+            <div><div class="num">SERVICE 03</div><h3>影音製作</h3></div>
+          </div>
+          <ul>
+            <li>旅遊紀錄影片</li>
+            <li>婚禮精華影片</li>
+            <li>生日及活動紀錄</li>
+            <li>個人回憶錄、紀念影片</li>
+          </ul>
+        </article>
+
+        <article class="card reveal">
+          <div class="card-top">
+            <div class="ico">💍</div>
+            <div><div class="num">SERVICE 04</div><h3>婚禮娛樂策畫</h3></div>
+          </div>
+          <ul>
+            <li>婚禮互動小遊戲</li>
+            <li>賓客抽獎活動</li>
+            <li>客製化闖關遊戲</li>
+            <li>婚禮互動投影及影音內容</li>
+          </ul>
+        </article>
+
+        <article class="card reveal">
+          <div class="card-top">
+            <div class="ico">🎫</div>
+            <div><div class="num">SERVICE 05</div><h3>票券與住宿代訂</h3></div>
+          </div>
+          <ul>
+            <li>飯店及民宿預訂</li>
+            <li>國內外景點門票</li>
+            <li>主題樂園票券</li>
+            <li>體驗活動及特色行程預約</li>
+          </ul>
+        </article>
+
+        <article class="card reveal">
+          <div class="card-top">
+            <div class="ico">🎂</div>
+            <div><div class="num">SERVICE 06</div><h3>活動企劃</h3></div>
+          </div>
+          <ul>
+            <li>生日派對規劃</li>
+            <li>公司團體活動</li>
+            <li>家庭聚會及紀念日</li>
+            <li>主題派對及活動主持安排</li>
+          </ul>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Process ===== -->
+  <section class="process" id="process">
+    <div class="container">
+      <div class="section-head reveal">
+        <div class="tag">HOW IT WORKS</div>
+        <h2>服務流程</h2>
+        <p>簡單四步驟，從想法到實現。</p>
+      </div>
+      <div class="steps">
+        <div class="step reveal"><h4>需求諮詢</h4><p>告訴我們你的想法、人數與預算</p></div>
+        <div class="step reveal"><h4>方案規劃</h4><p>提供專屬行程或企劃內容</p></div>
+        <div class="step reveal"><h4>確認執行</h4><p>確認細節後安排預訂與執行</p></div>
+        <div class="step reveal"><h4>完成與紀錄</h4><p>活動順利完成，留下美好回憶</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Contact ===== -->
+  <section class="contact" id="contact">
+    <div class="container">
+      <div class="section-head reveal">
+        <div class="tag">CONTACT US</div>
+        <h2>聯絡我們</h2>
+        <p>有任何想法，歡迎留言，我們會盡快與你聯繫。</p>
+      </div>
+      <div class="contact-grid">
+        <ul class="contact-info reveal">
+          <!-- TODO：請改成你們真實的聯絡資訊 -->
+          <li><span class="ico">📞</span> 電話：0900-000-000</li>
+          <li><span class="ico">✉️</span> Email：hello@example.com</li>
+          <li><span class="ico">💬</span> LINE：@your-line-id</li>
+          <li><span class="ico">📷</span> Instagram / Facebook：@your-account</li>
+        </ul>
+
+        <form class="reveal" id="contactForm">
+          <label>姓名
+            <input type="text" name="name" required placeholder="請輸入您的姓名">
+          </label>
+          <label>聯絡方式（電話或 Email）
+            <input type="text" name="contact" required placeholder="方便我們聯繫您的方式">
+          </label>
+          <label>想諮詢的服務
+            <select name="service">
+              <option>旅遊規劃</option>
+              <option>交通接駁</option>
+              <option>影音製作</option>
+              <option>婚禮娛樂策畫</option>
+              <option>票券與住宿代訂</option>
+              <option>活動企劃</option>
+              <option>其他</option>
+            </select>
+          </label>
+          <label>需求說明
+            <textarea name="message" placeholder="日期、人數、想法都可以告訴我們"></textarea>
+          </label>
+          <button type="submit" class="btn btn-primary">送出諮詢</button>
+          <div class="toast" id="toast">謝謝您的留言！（此為示範表單，尚未串接寄送功能）</div>
+          <p class="form-note">＊靜態網頁無法直接收信，之後可串接 Formspree、Google 表單或 LINE 官方帳號。</p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <p><strong>麻吉旅創 MAJI TRAVEL &amp; CREATIVE</strong></p>
+      <p>&copy; <span id="year">2026</span> MAJI TRAVEL &amp; CREATIVE. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // 手機版選單
+    const burger = document.getElementById('burger');
+    const menu = document.getElementById('menu');
+    burger.addEventListener('click', () => menu.classList.toggle('open'));
+    menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => menu.classList.remove('open')));
+
+    // 捲動淡入
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('show'); io.unobserve(e.target); } });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+    // 表單（示範用）
+    document.getElementById('contactForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      document.getElementById('toast').style.display = 'block';
+      e.target.reset();
+    });
+
+    // 年份
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
