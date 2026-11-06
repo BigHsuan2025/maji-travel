@@ -1,0 +1,179 @@
+
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1">
+
+  <title>麻吉旅創｜我的預約</title>
+
+  <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      padding: 24px 16px;
+      background: #f3f8fa;
+      font-family: Arial, "Noto Sans TC", sans-serif;
+      color: #203843;
+    }
+
+    .card {
+      max-width: 480px;
+      margin: 30px auto;
+      padding: 28px 22px;
+      background: white;
+      border-radius: 20px;
+      text-align: center;
+      box-shadow: 0 5px 24px #00000012;
+    }
+
+    h1 { color: #147b8d; }
+
+    .status {
+      margin: 22px 0;
+      padding: 14px;
+      background: #eaf6f8;
+      border-radius: 12px;
+      line-height: 1.7;
+    }
+
+    #avatar {
+      display: none;
+      width: 84px;
+      height: 84px;
+      margin: 15px auto;
+      border-radius: 50%;
+    }
+
+    button {
+      width: 100%;
+      margin-top: 12px;
+      padding: 15px;
+      border: 0;
+      border-radius: 12px;
+      background: #147b8d;
+      color: white;
+      font-size: 16px;
+    }
+
+    button:disabled { background: #94a3b8; }
+
+    .note {
+      margin-top: 20px;
+      font-size: 13px;
+      color: #64748b;
+      line-height: 1.8;
+    }
+  </style>
+</head>
+
+<body>
+  <main class="card">
+    <h1>麻吉旅創</h1>
+    <h2>會員預約查詢中心</h2>
+
+    <div id="status" class="status">
+      準備初始化 LINE...
+    </div>
+
+    <img id="avatar" alt="LINE 頭像">
+
+    <h3 id="welcome"></h3>
+
+    <p id="environment" class="note"></p>
+
+    <button id="loginBtn"
+            style="display:none"
+            onclick="loginLINE()">
+      使用 LINE 登入
+    </button>
+
+    <button disabled>
+      我的預約查詢（建置中）
+    </button>
+
+    <p class="note">
+      登入測試成功後，下一階段才會進行
+      會員身分綁定及預約資料查詢。
+    </p>
+  </main>
+
+  <script>
+    const LIFF_ID = "2012421997-YTZUdATT";
+
+    const statusBox = document.getElementById("status");
+    const loginBtn = document.getElementById("loginBtn");
+
+    function showStatus(message) {
+      statusBox.textContent = message;
+    }
+
+    async function startLIFF() {
+      try {
+        if (!window.liff) {
+          throw new Error("無法載入 LIFF SDK");
+        }
+
+        if (LIFF_ID === "請填入你的LIFF_ID") {
+          throw new Error("請先填入 LIFF ID");
+        }
+
+        showStatus("正在初始化 LINE...");
+
+        await liff.init({ liffId: LIFF_ID });
+
+        document.getElementById("environment").textContent =
+          liff.isInClient()
+            ? "目前在 LINE 內開啟"
+            : "目前在外部瀏覽器開啟";
+
+        if (!liff.isLoggedIn()) {
+          showStatus("尚未登入 LINE");
+          loginBtn.style.display = "block";
+          return;
+        }
+
+        showStatus("正在取得 LINE 會員資料...");
+
+        const profile = await liff.getProfile();
+
+        document.getElementById("welcome").textContent =
+          "您好，" + profile.displayName;
+
+        if (profile.pictureUrl) {
+          const avatar = document.getElementById("avatar");
+          avatar.src = profile.pictureUrl;
+          avatar.style.display = "block";
+        }
+
+        loginBtn.style.display = "none";
+        showStatus("LINE 登入測試成功！");
+
+      } catch (error) {
+        showStatus(
+          "登入發生錯誤：" +
+          (error.message || String(error))
+        );
+        console.error(error);
+      }
+    }
+
+    function loginLINE() {
+      if (!liff.isLoggedIn() && !liff.isInClient()) {
+        liff.login({
+          redirectUri: window.location.origin +
+                       window.location.pathname
+        });
+      } else {
+        showStatus("請重新透過 LIFF 網址開啟頁面");
+      }
+    }
+
+    startLIFF();
+  </script>
+</body>
+</html>
