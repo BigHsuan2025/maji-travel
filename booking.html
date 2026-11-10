@@ -92,9 +92,38 @@
       使用 LINE 登入
     </button>
 
-    <button disabled>
-      我的預約查詢（建置中）
-    </button>
+    
+    <div id="bindingPanel" style="display:none; margin-top:24px;">
+      <h3>首次綁定我的預約</h3>
+    
+      <p class="note">
+        請輸入曾經報名的預約編號。
+        送出後由麻吉旅創客服確認您的身分，
+        審核通過後才能查詢預約紀錄。
+      </p>
+    
+      <form id="bindingForm">
+        <input
+          type="text"
+          id="bookingId"
+          placeholder="請輸入預約編號 BK..."
+          autocomplete="off"
+          required
+          maxlength="40"
+          style="width:100%; padding:14px;
+                 border:1px solid #cbd5e1;
+                 border-radius:10px; font-size:16px;"
+        >
+    
+        <button type="submit" id="bindingSubmit">
+          送出會員綁定申請
+        </button>
+      </form>
+    
+      <p id="bindingResult" class="note"
+         role="status" aria-live="polite"></p>
+    </div>
+
 
     <p class="note">
       登入測試成功後，下一階段才會進行
@@ -181,6 +210,7 @@
         }
         
         showStatus("LINE 會員身分驗證成功！");
+        document.getElementById("bindingPanel").style.display = "block";
 
 
       } catch (error) {
@@ -202,6 +232,76 @@
         showStatus("請重新透過 LIFF 網址開啟頁面");
       }
     }
+    
+document.getElementById("bindingForm")
+  .addEventListener("submit", async function(event) {
+
+    event.preventDefault();
+
+    const bookingId = document
+      .getElementById("bookingId")
+      .value.trim().toUpperCase();
+
+    const resultBox = document
+      .getElementById("bindingResult");
+
+    const submitBtn = document
+      .getElementById("bindingSubmit");
+
+    if (!/^BK[A-Z0-9-]{8,40}$/.test(bookingId)) {
+      resultBox.textContent = "請輸入正確的預約編號";
+      return;
+    }
+
+    if (!liff.isLoggedIn()) {
+      resultBox.textContent = "請先登入 LINE";
+      return;
+    }
+
+    const idToken = liff.getIDToken();
+
+    if (!idToken) {
+      resultBox.textContent = "LINE 登入憑證不存在，請重新登入";
+      return;
+    }
+
+    submitBtn.disabled = true;
+    resultBox.textContent = "正在送出申請...";
+
+    try {
+      const response = await fetch(
+        "https://maji-travel-api.mistakt14.workers.dev/binding-request",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            idToken: idToken,
+            bookingId: bookingId
+          })
+        }
+      );
+
+      const data = await response.json();
+
+      if (!response.ok || !data.success) {
+        throw new Error(data.error || "申請失敗");
+      }
+
+      resultBox.textContent =
+        data.message || "申請已送出，等待客服審核";
+
+      document.getElementById("bookingId").value = "";
+
+    } catch (error) {
+      resultBox.textContent =
+        "送出失敗：" + (error.message || "請稍後再試");
+
+    } finally {
+      submitBtn.disabled = false;
+    }
+  });
 
     startLIFF();
   </script>
